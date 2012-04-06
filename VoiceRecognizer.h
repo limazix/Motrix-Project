@@ -1,9 +1,8 @@
 #ifndef VOICERECOGNIZER_H
 #define	VOICERECOGNIZER_H
 
-#include "../local/include/pocketsphinx/pocketsphinx.h"
-#include "ASRConfig.h"
-#include <iostream>
+#include "default.h"
+#include <pocketsphinx/pocketsphinx.h>
 
 class VoiceRecognizer {
 public:
@@ -13,12 +12,12 @@ public:
 
 private:
     //variables
-    int sampleRate = 16000;
-    int milliseconds = 500;
-    ASRConfig config;
+    int sampleRate;
+    int milliseconds;
 
     //methodes
     int recognitionLoop();
+    bool done();
 
 };
 

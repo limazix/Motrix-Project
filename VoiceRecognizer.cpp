@@ -1,23 +1,25 @@
 #include "VoiceRecognizer.h"
 
 VoiceRecognizer::VoiceRecognizer() {
+    this->sampleRate = 16000;
+    this->milliseconds = 500;
 }
 
 VoiceRecognizer::~VoiceRecognizer() {
 }
 
-VoiceRecognizer::run() {
+int VoiceRecognizer::run() {
     try {
         recognitionLoop();
     } catch (const char * s) {
-        std::cout << "ERRO " + s << std::endl;
+        std::cout << "ERRO" << std::endl;
     }
 
     std::cout << "Voice Recognizer is finishing!" << std::endl;
     return 0;
 }
 
-VoiceRecognizer::recognitionLoop() {
+int VoiceRecognizer::recognitionLoop() {
 
     size_t nsamp = this->milliseconds * sampleRate / 1000;
     int rv;
@@ -27,9 +29,9 @@ VoiceRecognizer::recognitionLoop() {
 
     cmd_ln_t * config;
     config = cmd_ln_init(NULL, ps_args(), TRUE,
-            "-hmm", this->config->getHmm_path(),
-            "-lm", this->config->getLm_dmp_path(),
-            "-dict", this->config->getLm_dic_path(),
+            "-hmm", "./models/hmm/en_US/hub4wsj_sc_8k",
+            "-lm", "./models/lm/hub4.5000.DMP",
+            "-dict", "./models/lm/hub4.5000.dic",
             NULL);
     if (config == NULL) throw "Could not create initializing parameters";
 
@@ -46,4 +48,14 @@ VoiceRecognizer::recognitionLoop() {
     std::cout << "Recognizer is ready!" << std::endl;
 
     int counter = 0;
+
+    while(!done()){
+        
+    }
+
+
+}
+
+bool VoiceRecognizer::done(){
+    return true;
 }
